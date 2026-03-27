@@ -1,4 +1,3 @@
-import e from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 
 const options = {
