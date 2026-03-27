@@ -1,4 +1,6 @@
 import dotenv from 'dotenv';
+// Charge d'abord .env si présent, sinon .env.local
+dotenv.config();
 dotenv.config({ path: '.env.local' });
 import process from 'process';
 
