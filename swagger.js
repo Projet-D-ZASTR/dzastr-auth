@@ -7,7 +7,6 @@ const options = {
     "components": {
       "securitySchemes": {
         "ServiceToken": { "type": "apiKey", "in": "header", "name": "x-service-token" },
-        "BearerAuth": { "type": "http", "scheme": "bearer", "bearerFormat": "JWT" }
       }
     },
     "security": [{ "ServiceToken": [] }],
