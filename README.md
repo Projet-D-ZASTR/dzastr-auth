@@ -1,6 +1,8 @@
 Service d'authentification de l'app D-ZASTR
 
-node js
+Made with Node Js
+
+Swagger doc available at /api/docs/
 
 Membres : 
 - Thibaut FIGUEIRA

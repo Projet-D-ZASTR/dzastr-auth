@@ -11,7 +11,7 @@
     "url": "git+https://github.com/Projet-D-ZASTR/dzastr-auth.git"
   },
   "license": "ISC",
-  "author": "",
+  "author": "Fabien ARTHUR",
   "type": "module",
   "main": "app.js",
   "scripts": {
@@ -27,6 +27,8 @@
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.8"
+    "sequelize": "^6.37.8",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }

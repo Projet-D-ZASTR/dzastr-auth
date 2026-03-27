@@ -1,0 +1,17 @@
+import e from 'express';
+import swaggerJsdoc from 'swagger-jsdoc';
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'My API',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./swagger/*.swagger'], // where your routes are
+};
+
+const specs = swaggerJsdoc(options);
+
+export default specs;

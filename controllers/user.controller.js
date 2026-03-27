@@ -13,10 +13,9 @@ const updateUserSchema = Joi.object({
   User_Role: Joi.string().min(0).max(50).required(),
   User_Email: Joi.string().email().required(),
   User_Password: Joi.string().min(6).max(80).required(),
-}).min(1); 
+}).min(1);
 
 export const userController = {
-  // POST /users
   createUser: async (req, res, next) => {
     try {
       const { error, value } = createUserSchema.validate(req.body);
@@ -36,7 +35,6 @@ export const userController = {
     }
   },
 
-  // GET /users
   getUsers: async (req, res, next) => {
     try {
       const users = await userService.getAllUsers();
@@ -54,7 +52,6 @@ export const userController = {
     }
   },
 
-  // GET /users/:id
   getUserById: async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -71,7 +68,6 @@ export const userController = {
     }
   },
 
-  // PUT /users/:id
   updateUser: async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -94,7 +90,6 @@ export const userController = {
     }
   },
 
-  // DELETE /users/:id
   deleteUser: async (req, res, next) => {
     try {
       const { id } = req.params;
