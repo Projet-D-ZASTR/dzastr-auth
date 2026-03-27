@@ -1,0 +1,188 @@
+/**
+* @swagger
+* /api/secure/register:
+*   post:
+*     summary: Register a new user
+*     tags:
+*       - Secure
+*     parameters:
+*       - in: header
+*         name: x-service-token
+*         required: true
+*         schema:
+*           type: string
+*         description: Service token for authentication
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties:
+*               User_Username:
+*                 type: string
+*                 example: johndoe
+*               User_Role:
+*                 type: string
+*                 example: user
+*               User_Email:
+*                 type: string
+*                 format: email
+*                 example: johndoe@example.com
+*               User_Password:
+*                 type: string
+*                 format: password
+*                 example: mysecretpassword
+*             required:
+*               - User_Username
+*               - User_Role
+*               - User_Email
+*               - User_Password
+*     responses:
+*       201:
+*         description: User registered successfully
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 user:
+*                   type: object
+*                   properties:
+*                     User_Username:
+*                       type: string
+*                     User_Role:
+*                       type: string
+*                     User_Email:
+*                       type: string
+*                       format: email
+*                 accessToken:
+*                   type: string
+*                   description: JWT access token for authentication
+*       400:
+*         description: Validation error
+*       401:
+*         description: Invalid or missing service token
+*       500:
+*         description: Internal server error
+*/
+
+/**
+* @swagger
+* /api/secure/login:
+*   post:
+*     summary: Login a user
+*     tags:
+*       - Secure
+*     parameters:
+*       - in: header
+*         name: x-service-token
+*         required: true
+*         schema:
+*           type: string
+*         description: Service token for authentication
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties:
+*               User_Email:
+*                 type: string
+*                 format: email
+*                 example: johndoe@example.com
+*               User_Password:
+*                 type: string
+*                 format: password
+*                 example: mysecretpassword
+*             required:
+*               - User_Email
+*               - User_Password
+*     responses:
+*       200:
+*         description: User logged in successfully
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 user:
+*                   type: object
+*                   properties:
+*                     User_Username:
+*                       type: string
+*                     User_Role:
+*                       type: string
+*                     User_Email:
+*                       type: string
+*                       format: email
+*                 accessToken:
+*                   type: string
+*                   description: JWT access token for authentication
+*       400:
+*         description: Validation error
+*       401:
+*         description: Invalid or missing service token or invalid credentials
+*       500:
+*         description: Internal server error
+*/
+
+/**
+* @swagger
+* /api/secure/verify:
+*   get:
+*     summary: Verify JWT token
+*     tags:
+*       - Secure
+*     parameters:
+*       - in: header
+*         name: x-service-token
+*         required: true
+*         schema:
+*           type: string
+*         description: Service token for authentication
+*       - in: header
+*         name: Authorization
+*         required: true
+*         schema:
+*           type: string
+*           example: Bearer your_jwt_token_here
+*         description: JWT token to verify, sent by Login or Register endpoint
+*     responses:
+*       200:
+*         description: Token is valid
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 valid:
+*                   type: boolean
+*                   example: true
+*                 user:
+*                   type: object
+*                   properties:
+*                     User_Id:
+*                       type: integer
+*                       example: 1
+*                     User_Email:
+*                       type: string
+*                       format: email
+*                       example: johndoe@example.com
+*       401:
+*         description: Invalid or missing service token / invalid or expired JWT
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 valid:
+*                   type: boolean
+*                   example: false
+*                 message:
+*                   type: string
+*                   example: Wrong or expired token.
+*       500:
+*         description: Internal server error
+*/

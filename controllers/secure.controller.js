@@ -65,6 +65,7 @@ export const secureController = {
       next(err);
     }
   },
+
   verify: (req, res) => {
     try {
       const secureHeader = req.headers.authorization || '';
