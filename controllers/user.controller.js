@@ -13,10 +13,86 @@ const updateUserSchema = Joi.object({
   User_Role: Joi.string().min(0).max(50).required(),
   User_Email: Joi.string().email().required(),
   User_Password: Joi.string().min(6).max(80).required(),
-}).min(1); 
+}).min(1);
 
 export const userController = {
-  // POST /users
+  /**
+ * @swagger
+ * /api/users/:
+ *   post:
+ *     summary: Create a new user
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: header
+ *         name: x-service-token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Service token for authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               User_Username:
+ *                 type: string
+ *                 example: johndoe
+ *               User_Role:
+ *                 type: string
+ *                 example: admin
+ *               User_Email:
+ *                 type: string
+ *                 format: email
+ *                 example: johndoe@example.com
+ *               User_Password:
+ *                 type: string
+ *                 format: password
+ *                 example: mysecretpassword
+ *             required:
+ *               - User_Username
+ *               - User_Role
+ *               - User_Email
+ *               - User_Password
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 User_Username:
+ *                   type: string
+ *                 User_Role:
+ *                   type: string
+ *                 User_Email:
+ *                   type: string
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User_Username is required"
+ *       409:
+ *         description: Conflict error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "E-mail already used"
+ *       500:
+ *         description: Internal server error
+ */
   createUser: async (req, res, next) => {
     try {
       const { error, value } = createUserSchema.validate(req.body);
