@@ -112,7 +112,48 @@ export const userController = {
     }
   },
 
-  // GET /users
+  /**
+ * @swagger
+ * /api/users/:
+ *   get:
+ *     summary: Get all users
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: header
+ *         name: x-service-token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Service token for authentication
+ *     responses:
+ *       200:
+ *         description: List of all users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   User_Id:
+ *                     type: integer
+ *                     example: 1
+ *                   User_Username:
+ *                     type: string
+ *                     example: johndoe
+ *                   User_Role:
+ *                     type: string
+ *                     example: admin
+ *                   User_Email:
+ *                     type: string
+ *                     format: email
+ *                     example: johndoe@example.com
+ *       401:
+ *         description: Invalid or missing service token
+ *       500:
+ *         description: Internal server error
+ */
   getUsers: async (req, res, next) => {
     try {
       const users = await userService.getAllUsers();
@@ -130,7 +171,54 @@ export const userController = {
     }
   },
 
-  // GET /users/:id
+  /**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     summary: Get a single user by ID
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: header
+ *         name: x-service-token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Service token for authentication
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the user to retrieve
+ *     responses:
+ *       200:
+ *         description: User found successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 User_Id:
+ *                   type: integer
+ *                   example: 1
+ *                 User_Username:
+ *                   type: string
+ *                   example: johndoe
+ *                 User_Role:
+ *                   type: string
+ *                   example: admin
+ *                 User_Email:
+ *                   type: string
+ *                   format: email
+ *                   example: johndoe@example.com
+ *       401:
+ *         description: Invalid or missing service token
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
   getUserById: async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -147,7 +235,74 @@ export const userController = {
     }
   },
 
-  // PUT /users/:id
+  /**
+ * @swagger
+ * /api/users/{id}:
+ *   put:
+ *     summary: Update a user by ID
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: header
+ *         name: x-service-token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Service token for authentication
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the user to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               User_Username:
+ *                 type: string
+ *                 example: johndoe
+ *               User_Role:
+ *                 type: string
+ *                 example: admin
+ *               User_Email:
+ *                 type: string
+ *                 format: email
+ *                 example: johndoe@example.com
+ *               User_Password:
+ *                 type: string
+ *                 format: password
+ *                 example: newpassword123
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 User_Username:
+ *                   type: string
+ *                 User_Role:
+ *                   type: string
+ *                 User_Email:
+ *                   type: string
+ *                   format: email
+ *                 User_Password:
+ *                   type: string
+ *                   format: password
+ *       400:
+ *         description: Validation error
+ *       401:
+ *         description: Invalid or missing service token
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
   updateUser: async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -170,7 +325,36 @@ export const userController = {
     }
   },
 
-  // DELETE /users/:id
+  /**
+   * @swagger
+   * /users/{id}:
+   *   delete:
+   *     summary: Delete a user by ID
+   *     tags:
+   *       - Users
+   *     parameters:
+   *       - in: header
+   *         name: x-service-token
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Service token for authentication
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: ID of the user to delete
+   *     responses:
+   *       204:
+   *         description: User deleted successfully, no content
+   *       401:
+   *         description: Invalid or missing service token
+   *       404:
+   *         description: User not found
+   *       500:
+   *         description: Internal server error
+   */
   deleteUser: async (req, res, next) => {
     try {
       const { id } = req.params;
