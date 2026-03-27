@@ -26,11 +26,23 @@
 *                 type: string
 *                 format: password
 *                 example: mysecretpassword
+*               User_Entreprise:
+*                 type: string
+*                 example: Ynov
+*               User_Address:
+*                 type: string
+*                 example: 82 rue du monde
+*               User_IsEntrepreneur:
+*                 type: boolean
+*                 example: false
 *             required:
 *               - User_Username
 *               - User_Role
 *               - User_Email
 *               - User_Password
+*               - User_Entreprise
+*               - User_Address
+*               - User_IsEntrepreneur
 *     responses:
 *       201:
 *         description: User registered successfully
@@ -49,6 +61,12 @@
 *                     User_Email:
 *                       type: string
 *                       format: email
+*                     User_Entreprise:
+*                       type: string
+*                     User_Address:
+*                       type: string
+*                     User_IsEntrepreneur:
+*                       type: boolean
 *                 accessToken:
 *                   type: string
 *                   description: JWT access token for authentication
@@ -103,6 +121,12 @@
 *                     User_Email:
 *                       type: string
 *                       format: email
+*                     User_Entreprise:
+*                       type: string
+*                     User_Address:
+*                       type: string
+*                     User_IsEntrepreneur:
+*                       type: boolean
 *                 accessToken:
 *                   type: string
 *                   description: JWT access token for authentication

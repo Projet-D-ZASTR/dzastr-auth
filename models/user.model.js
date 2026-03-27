@@ -33,6 +33,20 @@ User.init(
         isEmail: true,
       },
     },
+    User_Entreprise: {
+      type: DataTypes.STRING(80),
+      allowNull: true,
+      unique: false,
+    },
+    User_Address: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    User_IsEntrepreneur: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
     sequelize,

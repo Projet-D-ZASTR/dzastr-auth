@@ -1,11 +1,15 @@
 import Joi from 'joi';
 import { userService } from '../services/user.service.js';
+import { User } from '../models/user.model.js';
 
 const createUserSchema = Joi.object({
   User_Username: Joi.string().min(2).max(50).required(),
   User_Role: Joi.string().min(0).max(50).required(),
   User_Email: Joi.string().email().required(),
   User_Password: Joi.string().min(6).max(80).required(),
+  User_Entreprise: Joi.string().min(0).max(80).optional(),
+  User_Address: Joi.string().min(0).max(255).optional(),
+  User_IsEntrepreneur: Joi.boolean().optional(),
 });
 
 const updateUserSchema = Joi.object({
@@ -13,6 +17,9 @@ const updateUserSchema = Joi.object({
   User_Role: Joi.string().min(0).max(50).required(),
   User_Email: Joi.string().email().required(),
   User_Password: Joi.string().min(6).max(80).required(),
+  User_Entreprise: Joi.string().min(0).max(80).optional(),
+  User_Address: Joi.string().min(0).max(255).optional(),
+  User_IsEntrepreneur: Joi.boolean().optional(),
 }).min(1);
 
 export const userController = {
@@ -29,6 +36,9 @@ export const userController = {
         User_Username: user.User_Username,
         User_Role: user.User_Role,
         User_Email: user.User_Email,
+        User_Entreprise: user.User_Entreprise,
+        User_Address: user.User_Address,
+        User_IsEntrepreneur: user.User_IsEntrepreneur,
       });
     } catch (err) {
       next(err);
@@ -44,6 +54,9 @@ export const userController = {
         User_Username: u.User_Username,
         User_Role: u.User_Role,
         User_Email: u.User_Email,
+        User_Entreprise: u.User_Entreprise,
+        User_Address: u.User_Address,
+        User_IsEntrepreneur: u.User_IsEntrepreneur,
       }));
 
       return res.status(200).json(payload);
@@ -62,6 +75,9 @@ export const userController = {
         User_Username: user.User_Username,
         User_Role: user.User_Role,
         User_Email: user.User_Email,
+        User_Entreprise: user.User_Entreprise,
+        User_Address: user.User_Address,
+        User_IsEntrepreneur: user.User_IsEntrepreneur,
       });
     } catch (err) {
       next(err);
@@ -84,6 +100,9 @@ export const userController = {
         User_Role: updated.User_Role,
         User_Email: updated.User_Email,
         User_Password: updated.User_Password,
+        User_Entreprise: updated.User_Entreprise,
+        User_Address: updated.User_Address,
+        User_IsEntrepreneur: updated.User_IsEntrepreneur,
       });
     } catch (err) {
       next(err);

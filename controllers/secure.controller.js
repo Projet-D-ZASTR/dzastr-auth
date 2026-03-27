@@ -2,6 +2,7 @@ import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import { secureService } from '../services/secure.service.js';
 import { env } from '../config/env.js';
+import { User } from '../models/user.model.js';
 
 
 const registerSchema = Joi.object({
@@ -9,6 +10,9 @@ const registerSchema = Joi.object({
   User_Role: Joi.string().min(0).max(50).required(),
   User_Email: Joi.string().email().required(),
   User_Password: Joi.string().min(6).max(80).required(),
+  User_Entreprise: Joi.string().min(0).max(80).optional(),
+  User_Address: Joi.string().min(0).max(255).optional(),
+  User_IsEntrepreneur: Joi.boolean().optional(),
 });
 
 const loginSchema = Joi.object({
@@ -24,15 +28,18 @@ export const secureController = {
         return res.status(400).json({ message: error.message });
       }
 
-      const { User_Username, User_Role, User_Email, User_Password } = value;
+      const { User_Username, User_Role, User_Email, User_Password, User_Entreprise, User_Address, User_IsEntrepreneur } = value;
 
-      const result = await secureService.register({ User_Username, User_Role, User_Email, User_Password });
+      const result = await secureService.register({ User_Username, User_Role, User_Email, User_Password, User_Entreprise, User_Address, User_IsEntrepreneur });
 
       return res.status(201).json({
         user: {
           User_Username: result.user.User_Username,
           User_Role: result.user.User_Role,
           User_Email: result.user.User_Email,
+          User_Entreprise: result.user.User_Entreprise,
+          User_Address: result.user.User_Address,
+          User_IsEntrepreneur: result.user.User_IsEntrepreneur,
         },
         accessToken: result.accessToken,
       });
@@ -57,6 +64,9 @@ export const secureController = {
           User_Username: result.user.User_Username,
           User_Role: result.user.User_Role,
           User_Email: result.user.User_Email,
+          User_Entreprise: result.user.User_Entreprise,
+          User_Address: result.user.User_Address,
+          User_IsEntrepreneur: result.user.User_IsEntrepreneur,
         },
         accessToken: result.accessToken,
       });

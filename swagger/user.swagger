@@ -26,6 +26,15 @@
  *                 type: string
  *                 format: password
  *                 example: mysecretpassword
+ *               User_Entreprise:
+ *                 type: string
+ *                 example: Ynov
+ *               User_Address:
+ *                 type: string
+ *                 example: 28 rue du moment
+ *               User_IsEntrepreneur:
+ *                 type: boolean
+ *                 example: false
  *             required:
  *               - User_Username
  *               - User_Role
@@ -45,6 +54,12 @@
  *                   type: string
  *                 User_Email:
  *                   type: string
+ *                 User_Entreprise:
+ *                   type: string
+ *                 User_Address:
+ *                   type: string
+ *                 User_IsEntrepreneur:
+ *                   type: boolean
  *       400:
  *         description: Validation error
  *         content:
@@ -99,6 +114,15 @@
  *                     type: string
  *                     format: email
  *                     example: johndoe@example.com
+ *                   User_Entreprise:
+ *                     type: string
+ *                     example: Ynov
+ *                   User_Address:
+ *                     type: string
+ *                     example: 17 rue de la magie
+ *                   User_IsEntrepreneur:
+ *                     type: boolean
+ *                     example: false
  *       401:
  *         description: Invalid or missing service token
  *       500:
@@ -140,6 +164,15 @@
 *                   type: string
 *                   format: email
 *                   example: johndoe@example.com
+*                 User_Entreprise:
+*                   type: string
+*                   example: Ynov
+*                 User_Address:
+*                   type: string
+*                   example: 85 rue du mage
+*                 User_Boolean:
+*                   type: boolean
+*                   example: false
 *       401:
 *         description: Invalid or missing service token
 *       404:
@@ -183,6 +216,15 @@
 *                 type: string
 *                 format: password
 *                 example: newpassword123
+*               User_Entreprise:
+*                 type: string
+*                 example: Ynov
+*               User_Address:
+*                 type: string
+*                 example: 54 rue du marbre
+*               User_IsEntrepreneur:
+*                 type: boolean
+*                 example: false
 *     responses:
 *       200:
 *         description: User updated successfully
@@ -201,6 +243,12 @@
 *                 User_Password:
 *                   type: string
 *                   format: password
+*                 User_Entreprise:
+*                   type: string
+*                 User_Address:
+*                   type: string
+*                 User_IsEntrepreneur:
+*                   type: boolean
 *       400:
 *         description: Validation error
 *       401:

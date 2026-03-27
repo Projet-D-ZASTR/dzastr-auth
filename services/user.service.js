@@ -2,7 +2,7 @@ import { userRepository } from '../repositories/user.repository.js';
 import { hashPassword } from '../utils/password.js';
 
 export const userService = {
-  createUser: async ({ User_Username, User_Role, User_Password, User_Email }) => {
+  createUser: async ({ User_Username, User_Role, User_Password, User_Email, User_Entreprise, User_Address, User_IsEntrepreneur }) => {
     console.log('Creating user with email:', User_Email);
     const existingEmail = await userRepository.findByEmail(User_Email);
     if (existingEmail) {
@@ -25,6 +25,9 @@ export const userService = {
       User_Role,
       User_Email,
       User_Password: passwordHash,
+      User_Entreprise,
+      User_Address,
+      User_IsEntrepreneur,
     });
 
     return user;
@@ -86,6 +89,9 @@ export const userService = {
       User_Role: data.User_Role,
       User_Email: data.User_Email,
       User_Password: data.User_Password,
+      User_Entreprise: data.User_Entreprise,
+      User_Address: data.User_Address,
+      User_IsEntrepreneur: data.User_IsEntrepreneur,
     };
 
     const updated = await userRepository.update(user, mappedData);

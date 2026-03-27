@@ -3,7 +3,7 @@ import { hashPassword, comparePassword } from '../utils/password.js';
 import { generateAccessToken } from '../utils/jwt.js';
 
 export const secureService = {
-  register: async ({ User_Username, User_Role, User_Password, User_Email }) => {
+  register: async ({ User_Username, User_Role, User_Password, User_Email, User_Entreprise, User_Address, User_IsEntrepreneur }) => {
     const existingByEmail = await userRepository.findByEmail(User_Email);
     if (existingByEmail) {
       const error = new Error('Email already used');
@@ -25,6 +25,9 @@ export const secureService = {
       User_Role,
       User_Password: passwordHash,
       User_Email,
+      User_Entreprise,
+      User_Address,
+      User_IsEntrepreneur,
     });
 
     const payload = {
@@ -32,6 +35,9 @@ export const secureService = {
       User_Username: user.User_Username,
       User_Role: user.User_Role,
       User_Email: user.User_Email,
+      User_Entreprise: user.User_Entreprise,
+      User_Address: user.User_Address,
+      User_IsEntrepreneur: user.User_IsEntrepreneur,
     };
 
     const accessToken = generateAccessToken(payload);
@@ -63,6 +69,9 @@ export const secureService = {
       User_Username: user.User_Username,
       User_Role: user.User_Role,
       User_Email: user.User_Email,
+      User_Entreprise: user.User_Entreprise,
+      User_Address: user.User_Address,
+      User_IsEntrepreneur: user.User_IsEntrepreneur,
     };
 
     const accessToken = generateAccessToken(payload);
