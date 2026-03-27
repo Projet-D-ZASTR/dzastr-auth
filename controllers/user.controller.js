@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import { userService } from '../services/user.service.js';
-import { User } from '../models/user.model.js';
 
 const createUserSchema = Joi.object({
   User_Username: Joi.string().min(2).max(50).required(),

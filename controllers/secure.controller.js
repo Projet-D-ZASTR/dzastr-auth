@@ -2,7 +2,6 @@ import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import { secureService } from '../services/secure.service.js';
 import { env } from '../config/env.js';
-import { User } from '../models/user.model.js';
 
 
 const registerSchema = Joi.object({
