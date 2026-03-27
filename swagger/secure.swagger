@@ -5,13 +5,6 @@
 *     summary: Register a new user
 *     tags:
 *       - Secure
-*     parameters:
-*       - in: header
-*         name: x-service-token
-*         required: true
-*         schema:
-*           type: string
-*         description: Service token for authentication
 *     requestBody:
 *       required: true
 *       content:
@@ -74,13 +67,6 @@
 *     summary: Login a user
 *     tags:
 *       - Secure
-*     parameters:
-*       - in: header
-*         name: x-service-token
-*         required: true
-*         schema:
-*           type: string
-*         description: Service token for authentication
 *     requestBody:
 *       required: true
 *       content:
@@ -136,12 +122,6 @@
 *     tags:
 *       - Secure
 *     parameters:
-*       - in: header
-*         name: x-service-token
-*         required: true
-*         schema:
-*           type: string
-*         description: Service token for authentication
 *       - in: header
 *         name: Authorization
 *         required: true

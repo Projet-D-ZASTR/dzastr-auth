@@ -5,13 +5,6 @@
  *     summary: Create a new user
  *     tags:
  *       - Users
- *     parameters:
- *       - in: header
- *         name: x-service-token
- *         required: true
- *         schema:
- *           type: string
- *         description: Service token for authentication
  *     requestBody:
  *       required: true
  *       content:
@@ -83,13 +76,6 @@
  *     summary: Get all users
  *     tags:
  *       - Users
- *     parameters:
- *       - in: header
- *         name: x-service-token
- *         required: true
- *         schema:
- *           type: string
- *         description: Service token for authentication
  *     responses:
  *       200:
  *         description: List of all users
@@ -127,12 +113,6 @@
 *     tags:
 *       - Users
 *     parameters:
-*       - in: header
-*         name: x-service-token
-*         required: true
-*         schema:
-*           type: string
-*         description: Service token for authentication
 *       - in: path
 *         name: id
 *         required: true
@@ -176,12 +156,6 @@
 *     tags:
 *       - Users
 *     parameters:
-*       - in: header
-*         name: x-service-token
-*         required: true
-*         schema:
-*           type: string
-*         description: Service token for authentication
 *       - in: path
 *         name: id
 *         required: true
@@ -245,12 +219,6 @@
 *     tags:
 *       - Users
 *     parameters:
-*       - in: header
-*         name: x-service-token
-*         required: true
-*         schema:
-*           type: string
-*         description: Service token for authentication
 *       - in: path
 *         name: id
 *         required: true
