@@ -1,8 +1,7 @@
-import Joi from 'joi';
-import jwt from 'jsonwebtoken';
-import { secureService } from '../services/secure.service.js';
-import { env } from '../config/env.js';
-
+import Joi from 'joi'
+import jwt from 'jsonwebtoken'
+import { secureService } from '../services/secure.service.js'
+import { env } from '../config/env.js'
 
 const registerSchema = Joi.object({
   User_Username: Joi.string().min(2).max(50).required(),
@@ -12,24 +11,40 @@ const registerSchema = Joi.object({
   User_Entreprise: Joi.string().min(0).max(80).optional(),
   User_Address: Joi.string().min(0).max(255).optional(),
   User_IsEntrepreneur: Joi.boolean().optional(),
-});
+})
 
 const loginSchema = Joi.object({
   User_Email: Joi.string().required(),
   User_Password: Joi.string().min(6).max(80).required(),
-});
+})
 
 export const secureController = {
   register: async (req, res, next) => {
     try {
-      const { error, value } = registerSchema.validate(req.body);
+      const { error, value } = registerSchema.validate(req.body)
       if (error) {
-        return res.status(400).json({ message: error.message });
+        return res.status(400).json({ message: error.message })
       }
 
-      const { User_Username, User_Role, User_Email, User_Password, User_Entreprise, User_Address, User_IsEntrepreneur } = value;
+      const {
+        User_Username,
+        User_Role,
+        User_Email,
+        User_Password,
+        User_Entreprise,
+        User_Address,
+        User_IsEntrepreneur,
+      } = value
 
-      const result = await secureService.register({ User_Username, User_Role, User_Email, User_Password, User_Entreprise, User_Address, User_IsEntrepreneur });
+      const result = await secureService.register({
+        User_Username,
+        User_Role,
+        User_Email,
+        User_Password,
+        User_Entreprise,
+        User_Address,
+        User_IsEntrepreneur,
+      })
 
       return res.status(201).json({
         user: {
@@ -41,22 +56,22 @@ export const secureController = {
           User_IsEntrepreneur: result.user.User_IsEntrepreneur,
         },
         accessToken: result.accessToken,
-      });
+      })
     } catch (err) {
-      next(err);
+      next(err)
     }
   },
 
   login: async (req, res, next) => {
     try {
-      const { error, value } = loginSchema.validate(req.body);
+      const { error, value } = loginSchema.validate(req.body)
       if (error) {
-        return res.status(400).json({ message: error.message });
+        return res.status(400).json({ message: error.message })
       }
 
-      const { User_Email, User_Password } = value;
+      const { User_Email, User_Password } = value
 
-      const result = await secureService.login({ User_Email, User_Password });
+      const result = await secureService.login({ User_Email, User_Password })
 
       return res.status(200).json({
         user: {
@@ -68,23 +83,23 @@ export const secureController = {
           User_IsEntrepreneur: result.user.User_IsEntrepreneur,
         },
         accessToken: result.accessToken,
-      });
+      })
     } catch (err) {
-      next(err);
+      next(err)
     }
   },
 
   verify: (req, res) => {
     try {
-      const secureHeader = req.headers.authorization || '';
+      const secureHeader = req.headers.authorization || ''
 
       if (!secureHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ message: 'Wrong token.' });
+        return res.status(401).json({ message: 'Wrong token.' })
       }
 
-      const token = secureHeader.split(' ')[1];
+      const token = secureHeader.split(' ')[1]
 
-      const decoded = jwt.verify(token, env.jwt.secret);
+      const decoded = jwt.verify(token, env.jwt.secret)
 
       return res.json({
         valid: true,
@@ -92,10 +107,10 @@ export const secureController = {
           User_Id: decoded.User_Id,
           User_Email: decoded.User_Email,
         },
-      });
+      })
     } catch (error) {
-      console.error('Wrong token on verify :', error.message);
-      return res.status(401).json({ valid: false, message: 'Wrong or expired token.' });
+      console.error('Wrong token on verify :', error.message)
+      return res.status(401).json({ valid: false, message: 'Wrong or expired token.' })
     }
   },
-};
+}

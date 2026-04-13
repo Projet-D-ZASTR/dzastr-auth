@@ -1,9 +1,9 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 // Charge d'abord .env.local si présent, sinon .env.local
 if (dotenv.config({ path: '.env.local' }).error) {
-  dotenv.config({ path: '.env' });
+  dotenv.config({ path: '.env' })
 }
-import process from 'process';
+import process from 'process'
 
 export const env = {
   port: process.env.PORT,
@@ -16,4 +16,4 @@ export const env = {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN,
   },
-};
+}
