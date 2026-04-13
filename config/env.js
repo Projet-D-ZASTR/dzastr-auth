@@ -10,7 +10,7 @@ export const env = {
   nodeEnv: process.env.NODE_ENV,
   authServiceToken: process.env.AUTH_SERVICE_TOKEN,
   db: {
-    url: process.env.DB_URL,
+    url: process.env.DATABASE_URL || process.env.DB_URL,
   },
   jwt: {
     secret: process.env.JWT_SECRET,
