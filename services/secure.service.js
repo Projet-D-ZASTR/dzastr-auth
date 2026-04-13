@@ -1,24 +1,32 @@
-import { userRepository } from '../repositories/user.repository.js';
-import { hashPassword, comparePassword } from '../utils/password.js';
-import { generateAccessToken } from '../utils/jwt.js';
+import { userRepository } from '../repositories/user.repository.js'
+import { hashPassword, comparePassword } from '../utils/password.js'
+import { generateAccessToken } from '../utils/jwt.js'
 
 export const secureService = {
-  register: async ({ User_Username, User_Role, User_Password, User_Email, User_Entreprise, User_Address, User_IsEntrepreneur }) => {
-    const existingByEmail = await userRepository.findByEmail(User_Email);
+  register: async ({
+    User_Username,
+    User_Role,
+    User_Password,
+    User_Email,
+    User_Entreprise,
+    User_Address,
+    User_IsEntrepreneur,
+  }) => {
+    const existingByEmail = await userRepository.findByEmail(User_Email)
     if (existingByEmail) {
-      const error = new Error('Email already used');
-      error.status = 409;
-      throw error;
+      const error = new Error('Email already used')
+      error.status = 409
+      throw error
     }
 
-    const existingByUsername = await userRepository.findByUsername(User_Username);
+    const existingByUsername = await userRepository.findByUsername(User_Username)
     if (existingByUsername) {
-      const error = new Error('Username already used');
-      error.status = 409;
-      throw error;
+      const error = new Error('Username already used')
+      error.status = 409
+      throw error
     }
 
-    const passwordHash = await hashPassword(User_Password);
+    const passwordHash = await hashPassword(User_Password)
 
     const user = await userRepository.create({
       User_Username,
@@ -28,7 +36,7 @@ export const secureService = {
       User_Entreprise,
       User_Address,
       User_IsEntrepreneur,
-    });
+    })
 
     const payload = {
       User_Id: user.User_Id,
@@ -38,30 +46,30 @@ export const secureService = {
       User_Entreprise: user.User_Entreprise,
       User_Address: user.User_Address,
       User_IsEntrepreneur: user.User_IsEntrepreneur,
-    };
+    }
 
-    const accessToken = generateAccessToken(payload);
+    const accessToken = generateAccessToken(payload)
 
-    return { user, accessToken };
+    return { user, accessToken }
   },
 
   login: async ({ User_Email, User_Password }) => {
-    let user = await userRepository.findByEmail(User_Email);
+    let user = await userRepository.findByEmail(User_Email)
 
     if (!user) {
-      user = await userRepository.findByUsername(User_Email);
+      user = await userRepository.findByUsername(User_Email)
       if (!user) {
-        const error = new Error('No user found with this email or username');
-        error.status = 401;
-        throw error;
+        const error = new Error('No user found with this email or username')
+        error.status = 401
+        throw error
       }
     }
 
-    const isValid = await comparePassword(User_Password, user.User_Password);
+    const isValid = await comparePassword(User_Password, user.User_Password)
     if (!isValid) {
-      const error = new Error('Wrong credentials');
-      error.status = 401;
-      throw error;
+      const error = new Error('Wrong credentials')
+      error.status = 401
+      throw error
     }
 
     const payload = {
@@ -72,10 +80,10 @@ export const secureService = {
       User_Entreprise: user.User_Entreprise,
       User_Address: user.User_Address,
       User_IsEntrepreneur: user.User_IsEntrepreneur,
-    };
+    }
 
-    const accessToken = generateAccessToken(payload);
+    const accessToken = generateAccessToken(payload)
 
-    return { user, accessToken };
+    return { user, accessToken }
   },
-};
+}
