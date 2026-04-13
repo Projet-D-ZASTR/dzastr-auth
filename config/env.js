@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
-// Charge d'abord .env si présent, sinon .env.local
-dotenv.config();
-dotenv.config({ path: '.env.local' });
+// Charge d'abord .env.local si présent, sinon .env.local
+if (dotenv.config({ path: '.env.local' }).error) {
+  dotenv.config({ path: '.env' });
+}
 import process from 'process';
 
 export const env = {
